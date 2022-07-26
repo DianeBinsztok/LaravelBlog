@@ -10,11 +10,10 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'user' => fake()->name(),
+            'author_alias'=>fake()->name(),
             'date' => fake()->date(),
             'content' => fake()->text(200),
-            'author_alias'=>fake()->name()
+            'user_id' => fake()->randomNumber(),
         ];
     }
-
 }

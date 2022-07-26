@@ -16,9 +16,9 @@ class PostFactory extends Factory
     {
         return [
             'title'=> fake()->title(),
-            'user'=> fake()->name(),
             'date' => fake()->date(),
-            'content' => fake()->text(2000)
+            'content' => fake()->text(2000),
+            'user_id'=> fake()->randomNumber()
         ];
     }
 }

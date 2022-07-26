@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id('id');
             $table->timestamps();
             $table->date('date');
-            $table->string('user');
             $table->string('title');
             $table->string('content');
             $table->foreignId('user_id');
