@@ -17,14 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(10)->create();
-        Post::factory(5)->create();
-        Comment::factory(3)->create();
-
-        // Peut-on garder cet exemple en plus?
-        User::factory()->create([
-        'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            UserSeeder::class,
+            PostSeeder::class,
+            CommentSeeder::class
         ]);
     }
 }

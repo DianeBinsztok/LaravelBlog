@@ -12,7 +12,8 @@ class CommentFactory extends Factory
         return [
             'user' => fake()->name(),
             'date' => fake()->date(),
-            'content' => fake()->text(200)
+            'content' => fake()->text(200),
+            'author_alias'=>fake()->name()
         ];
     }
 
