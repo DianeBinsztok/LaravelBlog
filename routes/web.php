@@ -22,6 +22,9 @@ Route::get('/', function () {
 //Homepage
 Route::get('/', [postController::class, 'index']);
 
+//Post
+Route::get('/{id}', [postController::class, 'show']);
+
 // Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');

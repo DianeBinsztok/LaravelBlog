@@ -49,7 +49,9 @@ class postController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $postComments = $post->comments;
+        return view('post', ['post' => $post, 'postComments' => $postComments]);
     }
 
     /**
