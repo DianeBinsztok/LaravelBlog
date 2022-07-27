@@ -447,7 +447,7 @@
                         <div class="ml-12">
 
                             <div class="mt-2 text-sm">
-                                X Commentaire(s)
+                                {{$post->nbOfComments()}} commentaire(s).
                             </div>
                         </div>
                     </div>
