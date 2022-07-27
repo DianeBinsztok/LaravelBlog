@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id('id');
-            $table->timestamps();
-            $table->date('date');
             $table->string('title');
-            $table->string('content');
-            $table->foreignId('user_id');
+            $table->text('content');
+            $table->foreignId('user_id')->constrained();
+            // created_at et updated_at sont géré par le timestamp
+            $table->timestamps();
         });
     }
 
