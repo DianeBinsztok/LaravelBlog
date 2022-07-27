@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-//Hopepage
+
+
 Route::get('/', function () {
     return view('welcome');
 });
-//Test
-Route::get('/home', [HomeController::class, 'index']);
+*/
+//Homepage
+Route::get('/', [HomeController::class, 'index']);
 
 // Dashboard
 Route::get('/dashboard', function () {
