@@ -441,7 +441,7 @@
                         <div class="ml-12">
                             <div class="mt-2 text-sm">Publié par {{$post->user->name}} le {{$post->created_at}}</div>
                             <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                {{$post->content}}
+                                {{Str::of($post->content)->limit(500)}}
                             </div>
                         </div>
                         <div class="ml-12">
