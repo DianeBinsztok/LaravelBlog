@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\postController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +20,11 @@ Route::get('/', function () {
 });
 */
 //Homepage
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [postController::class, 'index']);
 
 // Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
