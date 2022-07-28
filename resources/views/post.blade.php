@@ -438,7 +438,8 @@
                     <div class="ml-4 text-lg leading-7 font-semibold"><h1>{{$post->title}}</h1></div>
                     <div class="ml-12">
 
-                        <div class="mt-2 text-sm">Publié par {{$post->user->name}} le {{$post->created_at->diffForHumans()}}</div>
+                        <div class="mt-2 text-sm">Publié par {{$post->user->name}}
+                            le {{$post->created_at->diffForHumans()}}</div>
                         <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                             {{$post->content}}
                         </div>
@@ -450,7 +451,7 @@
                             <div class="mt-2 text-sm">
                                 <h4>
                                     @if ($comment->user)
-                                    Par {{$comment->user->name}}, {{$comment->created_at}}
+                                        Par {{$comment->user->name}}, {{$comment->created_at}}
                                     @else
                                         Par {{$comment->pseudo}}, {{$comment->created_at->diffForHumans()}}
                                     @endif
@@ -460,12 +461,12 @@
                         @endforeach
                     </div>
                     <div><h4>Ajouter un commentaire:</h4>
-                        <form action="{{route('comment'}}" method="post" class="form-example">
+                        <form action="{{route('comment')}}" method="post" class="form-example">
                             @csrf
                             <input name="post_id" type="hidden" value="{{$post->id}}">
                             @guest
                                 <div class="form">
-                                    <label for="name">Votre pseudo </label>
+                                    <label for="pseudo">Votre pseudo </label>
                                     <input type="text" name="pseudo" id="name" required>
                                 </div>
                                 <div class="form">
@@ -474,6 +475,7 @@
                                 </div>
                             @endguest
                             <div class="form column">
+                                <input name="user_id" type="hidden" value="{{$post->user->id}}">
                                 <label for="content">Votre commentaire </label>
                                 <textarea name="content" id="content" required maxlength="2000" rows="5" cols="33">
                                 </textarea>
