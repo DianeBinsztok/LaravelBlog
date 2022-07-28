@@ -1,7 +1,7 @@
 <?php
 
 
-use App\Http\Controllers\postController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +20,13 @@ Route::get('/', function () {
 });
 */
 //Homepage
-Route::get('/', [postController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])->name('home');
 
-//Post
-Route::get('/{id}', [postController::class, 'show']);
+//Page d'article
+Route::get('/{id}', [PostController::class, 'show'])->name('post');
+
+// Envoie du formulaire commentaire
+Route::post('/{id}', [PostController::class, 'store'])->name('comment');
 
 // Dashboard
 Route::get('/dashboard', function () {

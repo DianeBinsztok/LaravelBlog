@@ -54,6 +54,12 @@
             height: auto
         }
 
+        input, textarea {
+            border: 1px solid grey;
+            padding: 0.5em;
+            margin: 1em;
+        }
+
         .bg-white {
             --bg-opacity: 1;
             background-color: #fff;
@@ -419,7 +425,6 @@
 
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
         <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
-
             <div class="grid grid-cols-1 md:grid-cols-2">
                 <div class="p-6">
                     <div class="flex items-center">
@@ -444,11 +449,34 @@
                         @foreach($postComments as $comment)
                             <div class="mt-2 text-sm">
                                 <h4>
-                                    Commentaire de {{$comment->user->name}}
+                                    Par {{$comment->user->name}}, {{$comment->created_at}}
                                 </h4>
                                 {{$comment->content}}
                             </div>
                         @endforeach
+                    </div>
+                    <div><h4>Ajouter un commentaire:</h4>
+                        <form action="{{route('comment', $post->id)}}" method="post" class="form-example">
+                            @if(!auth()->check())
+                                <div class="form">
+                                    <label for="name">Votre pseudo </label>
+                                    <input type="text" name="pseudo" id="name" required>
+                                </div>
+                                <div class="form">
+                                    <label for="email">Votre email </label>
+                                    <input type="email" name="email" id="email" required>
+                                </div>
+                            @endif
+                            <div class="form column">
+                                <label for="email">Votre commentaire </label>
+                                <textarea name="pseudo" id="pseudo" required maxlength="2000" rows="5" cols="33">
+                                </textarea>
+                            </div>
+
+                            <div class="form">
+                                <input type="submit" value="Envoyer">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -458,7 +486,8 @@
         <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
             <div class="text-center text-sm text-gray-500 sm:text-left">
                 <div class="flex items-center">
-                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                    <svg fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                         viewBox="0 0 24 24"
                          stroke="currentColor" class="-mt-px w-5 h-5 text-gray-400">
                         <path
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -479,7 +508,9 @@
                     </a>
                 </div>
             </div>
+            <div class="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
 
+            </div>
             <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                 Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
             </div>

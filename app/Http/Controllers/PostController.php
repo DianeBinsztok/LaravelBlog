@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class postController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,18 +34,21 @@ class postController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        echo("Commentaire envoyé: ");
+        echo($input);
     }
+
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
@@ -53,6 +56,7 @@ class postController extends Controller
         $postComments = $post->comments;
         return view('post', ['post' => $post, 'postComments' => $postComments]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

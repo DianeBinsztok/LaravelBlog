@@ -21,6 +21,7 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    //check : Eloquent ORM > aggregating related models > Counting Related Models
     public function nbOfComments(): int
     {
         return count($this->comments);
