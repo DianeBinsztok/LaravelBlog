@@ -9,6 +9,8 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $perPage = 10;
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -19,11 +21,5 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-
-    //check : Eloquent ORM > aggregating related models > Counting Related Models
-    public function nbOfComments(): int
-    {
-        return count($this->comments);
     }
 }

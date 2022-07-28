@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Blog</title>
 
     <!-- Fonts -->
@@ -438,26 +438,32 @@
                     <div class="ml-4 text-lg leading-7 font-semibold"><h1>{{$post->title}}</h1></div>
                     <div class="ml-12">
 
-                        <div class="mt-2 text-sm">Publié par {{$post->user->name}} le {{$post->created_at}}</div>
+                        <div class="mt-2 text-sm">Publié par {{$post->user->name}} le {{$post->created_at->diffForHumans()}}</div>
                         <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
                             {{$post->content}}
                         </div>
                     </div>
 
                     <div class="mt-2 text-sm">
-                        {{$post->nbOfComments()}} commentaire(s):
-                        @foreach($postComments as $comment)
+                        {{$post->comments_count}} commentaire(s):
+                        @foreach($post->comments as $comment)
                             <div class="mt-2 text-sm">
                                 <h4>
+                                    @if ($comment->user)
                                     Par {{$comment->user->name}}, {{$comment->created_at}}
+                                    @else
+                                        Par {{$comment->pseudo}}, {{$comment->created_at->diffForHumans()}}
+                                    @endif
                                 </h4>
                                 {{$comment->content}}
                             </div>
                         @endforeach
                     </div>
                     <div><h4>Ajouter un commentaire:</h4>
-                        <form action="{{route('comment', $post->id)}}" method="post" class="form-example">
-                            @if(!auth()->check())
+                        <form action="{{route('comment'}}" method="post" class="form-example">
+                            @csrf
+                            <input name="post_id" type="hidden" value="{{$post->id}}">
+                            @guest
                                 <div class="form">
                                     <label for="name">Votre pseudo </label>
                                     <input type="text" name="pseudo" id="name" required>
@@ -466,10 +472,10 @@
                                     <label for="email">Votre email </label>
                                     <input type="email" name="email" id="email" required>
                                 </div>
-                            @endif
+                            @endguest
                             <div class="form column">
-                                <label for="email">Votre commentaire </label>
-                                <textarea name="pseudo" id="pseudo" required maxlength="2000" rows="5" cols="33">
+                                <label for="content">Votre commentaire </label>
+                                <textarea name="content" id="content" required maxlength="2000" rows="5" cols="33">
                                 </textarea>
                             </div>
 

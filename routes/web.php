@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,24 +12,20 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
 */
+
 //Homepage
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 //Page d'article
-Route::get('/{id}', [PostController::class, 'show'])->name('post');
+Route::get('/{post}', [PostController::class, 'show'])->name('post');
 
 // Envoie du formulaire commentaire
-Route::post('/{id}', [PostController::class, 'store'])->name('comment');
+Route::post('/comment', [PostController::class, 'store'])->name('comment');
 
 // Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

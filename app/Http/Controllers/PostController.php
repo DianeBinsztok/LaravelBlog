@@ -14,81 +14,36 @@ class PostController extends Controller
      */
     public function index()
     {
-
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::with('user')->withCount('comments')->latest()->paginate();
 
         return view('index', ['posts' => $posts]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        echo("Commentaire envoyé: ");
-        echo($input);
-    }
+        // Valider tes champs : https://laravel.com/docs/9.x/validation#validation-quickstart avec les règle de validation : https://laravel.com/docs/9.x/validation#available-validation-rules
 
+        // Crée un comment via un model : https://laravel.com/docs/9.x/eloquent#inserts
+
+        // Redirige ou renvoi sur une view success : https://laravel.com/docs/9.x/responses#redirects
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::findOrFail($id);
-        $postComments = $post->comments;
-        return view('post', ['post' => $post, 'postComments' => $postComments]);
-    }
+        $post->load(['comments.user', 'user']);
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('post', ['post' => $post]);
     }
 }
