@@ -60,10 +60,10 @@ class PostController extends Controller
         $comment->email = $request->email;
         $comment->content = $request->content;
         $comment->save();
+
+        // Redirige ou renvoie sur une view success : https://laravel.com/docs/9.x/responses#redirects
+        return back()->withInput();
     }
-
-
-    // Redirige ou renvoie sur une view success : https://laravel.com/docs/9.x/responses#redirects
 
 
     /**
