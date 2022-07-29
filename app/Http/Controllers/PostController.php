@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -27,13 +28,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // Valider tes champs : https://laravel.com/docs/9.x/validation#validation-quickstart avec les règle de validation : https://laravel.com/docs/9.x/validation#available-validation-rules
-        $validate = [];
-        if (auth()) {
+        // Valider tes champs : https://laravel.com/docs/9.x/validation#validation-quickstart avec les règles de validation : https://laravel.com/docs/9.x/validation#available-validation-rules
+
+        if (auth()->user()) {
             $validate = $request->validate([
                 'post_id' => 'exists:App\Models\Post,id',
-                'user_id' => 'exists:App\Models\User,id',
-                'email' => ['required', 'email:rfc,dns'],
+                'user_id' => ['required', 'exists:App\Models\User,id'],
                 'content' => ['required', 'string']
             ]);
         } else {
@@ -44,13 +44,21 @@ class PostController extends Controller
                 'content' => ['required', 'string']
             ]);
         }
-        echo(implode($validate)); // pb avec le champs 'pseudo'-> renvoie 25 (??)
+        print_r($validate);
 
-
-        // Crée un comment via un model : https://laravel.com/docs/9.x/eloquent#inserts
-
-        // Redirige ou renvoi sur une view success : https://laravel.com/docs/9.x/responses#redirects
+        $comment = new Comment;
+        $comment->post_id = $request->post_id;
+        $comment->user_id = $request->user_id;
+        $comment->pseudo = $request->pseudo;
+        $comment->email = $request->email;
+        $comment->content = $request->content;
+        $comment->save();
     }
+
+    // Crée un comment via un model : https://laravel.com/docs/9.x/eloquent#inserts
+
+    // Redirige ou renvoi sur une view success : https://laravel.com/docs/9.x/responses#redirects
+
 
     /**
      * Display the specified resource.

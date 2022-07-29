@@ -475,7 +475,9 @@
                                 </div>
                             @endguest
                             <div class="form column">
-                                <input name="user_id" type="hidden" value="{{$post->user->id}}">
+                                @if(auth()->user())
+                                    <input name="user_id" type="hidden" value="{{auth()->user()->id}}">
+                                @endif
                                 <label for="content">Votre commentaire </label>
                                 <textarea name="content" id="content" required maxlength="2000" rows="5" cols="33">
                                 </textarea>
