@@ -28,8 +28,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // Valider tes champs : https://laravel.com/docs/9.x/validation#validation-quickstart avec les règles de validation : https://laravel.com/docs/9.x/validation#available-validation-rules
-
+        // Valider les champs : https://laravel.com/docs/9.x/validation#validation-quickstart avec les règles de validation : https://laravel.com/docs/9.x/validation#available-validation-rules
         if (auth()->user()) {
             $validate = $request->validate([
                 'post_id' => 'exists:App\Models\Post,id',
@@ -42,10 +41,18 @@ class PostController extends Controller
                 'pseudo' => ['required', 'string'],
                 'email' => ['required', 'email:rfc,dns'],
                 'content' => ['required', 'string']
+
+                // Comment vérifier l'existence du même pseudo sur une adresse email différente?
+                // Comment imposer un pseudo unique sur une même adresse email?
+                //'pseudo' => ['required', 'unique:App\Models\Comment,pseudo', 'string'],
+                //'email' => ['required', 'email:rfc,dns'],
+
             ]);
         }
+
         print_r($validate);
 
+        // Crée un comment via un model : https://laravel.com/docs/9.x/eloquent#inserts
         $comment = new Comment;
         $comment->post_id = $request->post_id;
         $comment->user_id = $request->user_id;
@@ -55,9 +62,8 @@ class PostController extends Controller
         $comment->save();
     }
 
-    // Crée un comment via un model : https://laravel.com/docs/9.x/eloquent#inserts
 
-    // Redirige ou renvoi sur une view success : https://laravel.com/docs/9.x/responses#redirects
+    // Redirige ou renvoie sur une view success : https://laravel.com/docs/9.x/responses#redirects
 
 
     /**

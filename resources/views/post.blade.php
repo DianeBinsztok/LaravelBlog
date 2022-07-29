@@ -461,6 +461,12 @@
                         @endforeach
                     </div>
                     <div><h4>Ajouter un commentaire:</h4>
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <p class="alert alert-danger" style="color: red; border: 1px solid red">Une erreur est
+                                    survenue : {{$error}}</p>
+                            @endforeach
+                        @endif
                         <form action="{{route('comment')}}" method="post" class="form-example">
                             @csrf
                             <input name="post_id" type="hidden" value="{{$post->id}}">
