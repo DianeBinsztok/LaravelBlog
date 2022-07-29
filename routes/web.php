@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +13,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Hopepage
-Route::get('/', function () {
-    return view('welcome');
-});
-//Test
-Route::get('/home', [HomeController::class, 'index']);
+
+//Homepage
+Route::get('/', [PostController::class, 'index'])->name('home');
+
+//Page d'article
+Route::get('/{post}', [PostController::class, 'show'])->name('post');
+
+// Envoie du formulaire commentaire
+Route::post('/comment', [PostController::class, 'store'])->name('comment');
 
 // Dashboard
 Route::get('/dashboard', function () {

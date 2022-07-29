@@ -8,11 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    public function user(){
+
+    protected $perPage = 10;
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
+
     use HasFactory;
-    public function comment(){
+
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 }

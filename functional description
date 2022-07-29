@@ -1,0 +1,52 @@
+Blog à 3 vues principales
+
+- page d'accueil
+- page d'article
+- dashboard administrateur
+
+Fonctionnalités:
+
+GET afficher la page d'accueil
+GET afficher la page d'article
+GET afficher le dashboard
+POST ajouter un commentaire depuis la page d'article
+PATCH modifier un commentaire
+
+
+L'utilisateur authentifié peut:
+- afficher la page d'accueil
+- afficher la page d'article
+- ajouter un commentaire sans renseigner son son ou email : seul le champs de contenu du commentaire apparaît
+- Modifier ses commentaires
+- Supprimer son commentaire
+
+
+l'utilisateur non authentifié peut:
+- afficher la page d'accueil
+- afficher la page d'article
+- depuis la page d'accueil: ajouter un article
+- depuis la page article: ajouter un commentaire en renseignant un pseudo et un email
+- Modifier ses commentaires
+- Supprimer son commentaire
+
+L'administrateur peut:
+- afficher la page d'accueil
+- afficher la page d'article
+- depuis la page d'accueil: ajouter un article
+- depuis la page article: ajouter un commentaire en renseignant un pseudo et un email
+- afficher le dashboard
+- depuis le dashboard:
+    - Ajouter un utilisateur
+    - Supprimer un utilisateur
+    - Modifier des infos utilisateur
+    - Ajouter un article
+    - Supprimer un article
+    - Modifier des un article
+    - Ajouter un commentaire
+    - Supprimer un commentaire
+    - Modifier un commentaire
+
+Technologies utilisées:
+- Laravel 9
+- Breeze pour l'authentification
+- Tailwind pour le style

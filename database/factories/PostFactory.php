@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
@@ -16,9 +15,10 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'title'=> fake()->sentence(),
+            'title' => fake()->sentence(),
             'content' => fake()->text(2000),
-            'user_id'=> User::factory()
+            'user_id' => User::inRandomOrder()->first(),
+            'created_at' => fake()->dateTimeBetween('-1 week'),
         ];
     }
 }
