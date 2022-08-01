@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class DashboardController extends Controller
 
     public function delete(Request $request, Post $post)
     {
+        $post->comments()->delete();
         $post->delete();
         return redirect('dashboard');
     }

@@ -57,8 +57,12 @@
 
                                 <a href="{{route('editPost', $post)}}" style="color: blue"
                                    class="underline text-gray-900 dark:text-white">Modifier l'article</a>
-                                <a href="{{route('deletePost', $post)}}" style="color: red"
-                                   class="underline text-gray-900 dark:text-white">Supprimer l'article</a>
+                                <form action="{{route('deletePost', $post)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Supprimer l'article"
+                                           style="color: red; text-decoration: underline">
+                                </form>
                             </div>
                         </div>
                     @endforeach

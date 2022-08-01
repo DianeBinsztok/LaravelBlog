@@ -4,8 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Dashboard') }}
             </h2>
-            <h2 href=""
-                class="underline text-gray-900 dark:text-white">Ajouter un article</h2>
+            <h2>
+                <a href="{{route('createPost')}}"
+                   class="underline text-gray-900 dark:text-white">Ajouter un article</a>
+            </h2>
         </div>
     </x-slot>
 
@@ -34,43 +36,46 @@
                     <!-- Supprimer - modifier un article-->
                     <input type="submit" value="Enregistrer la modification"
                            style="color: blue; text-decoration: underline">
-
                 </form>
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <div class="mt-2 text-sm">
-                    {{$post->comments_count}} commentaire(s):
-                    @foreach($post->comments as $comment)
-                        <div class="mt-2 text-sm">
-                            <h4>
-                                @if ($comment->user)
-                                    Par {{$comment->user->name}}, {{$comment->created_at}}
-                                @else
-                                    Par {{$comment->pseudo}}, {{$comment->created_at->diffForHumans()}}
-                                @endif
-                            </h4>
-                            <textarea name="content" id="content" cols="60" rows="5">
+                <form action="{{route('deletePost', $post)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="Supprimer l'article"
+                           style="color: red; text-decoration: underline">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="mt-2 text-sm">
+                        {{$post->comments_count}} commentaire(s):
+                        @foreach($post->comments as $comment)
+                            <div class="mt-2 text-sm">
+                                <h4>
+                                    @if ($comment->user)
+                                        Par {{$comment->user->name}}, {{$comment->created_at}}
+                                    @else
+                                        Par {{$comment->pseudo}}, {{$comment->created_at->diffForHumans()}}
+                                    @endif
+                                </h4>
+                                <textarea name="content" id="content" cols="60" rows="5">
                                {{$comment->content}}
                         </textarea>
 
-                        </div>
-                        <div style="display: flex; justify-content: space-around">
-                            <!-- Supprimer - modifier un commentaire-->
-                            <a href="{{route('editPost', $post)}}" style="color: blue"
-                               class="underline text-gray-900 dark:text-white">Modifier le commentaire</a>
-                            <a href="{{route('updatePost', $post)}}" style="color: red"
-                               class="underline text-gray-900 dark:text-white">Supprimer le commentaire</a>
-                        </div>
-                    @endforeach
-                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-around">
+                                <!-- Supprimer - modifier un commentaire-->
+                                <a href="{{route('editPost', $post)}}" style="color: blue"
+                                   class="underline text-gray-900 dark:text-white">Modifier le commentaire</a>
+                                <a href="{{route('updatePost', $post)}}" style="color: red"
+                                   class="underline text-gray-900 dark:text-white">Supprimer le commentaire</a>
+                            </div>
+                        @endforeach
+                    </div>
             </div>
         </div>
     </div>

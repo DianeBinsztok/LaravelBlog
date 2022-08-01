@@ -24,13 +24,20 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
 // Envoi du formulaire commentaire
 Route::post('/comment', [PostController::class, 'store'])->name('comment');
 
-// Dashboard
+// DASHBOARD:
+
+// Lister les posts
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
+// Créer - enregistrer un nouveau post
 Route::get('/createPost/', [DashboardController::class, 'create'])->middleware(['auth'])->name('createPost');
 Route::post('/storePost/', [DashboardController::class, 'store'])->middleware(['auth'])->name('storePost');
 
+// Modifier - sauvegarder un post
 Route::get('/dashboard/{post}', [DashboardController::class, 'edit'])->middleware(['auth'])->name('editPost');
 Route::put('/dashboard/{post}', [DashboardController::class, 'update'])->middleware(['auth'])->name('updatePost');
+
+// Supprimer un post
 Route::delete('/dashboard/{post}', [DashboardController::class, 'delete'])->middleware(['auth'])->name('deletePost');
+
 require __DIR__ . '/auth.php';
