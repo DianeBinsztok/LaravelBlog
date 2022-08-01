@@ -64,18 +64,20 @@ class DashboardController extends Controller
     {
         $rules = [
             'post_id' => 'required|exists:App\Models\Post,id',
-            'title' => ['required', 'string', 'max:500'],
-            'content' => ['required', 'string', 'max:2000'],
+            'post_title' => ['required', 'string', 'max:500'],
+            'post_content' => ['required', 'string', 'max:2000'],
         ];
         $validated = $request->validate($rules);
 
         $post->id = $validated['post_id'];
-        $post->title = $validated['title'];
-        $post->content = $validated['content'];
+        $post->title = $validated['post_title'];
+        $post->content = $validated['post_content'];
 
         // Modifier le post via le model
+        print_r($post);
         $post->save();
-        return view('editPost', ['post' => $post]);
+
+        return redirect('dashboard');
     }
 
     public function delete(Request $request, Post $post)
