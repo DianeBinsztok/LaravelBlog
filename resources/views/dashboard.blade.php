@@ -4,8 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Dashboard') }}
             </h2>
-            <h2 href=""
-                class="underline text-gray-900 dark:text-white">Ajouter un article</h2>
+            <h2>
+                <a href="{{route('createPost')}}" class="underline text-gray-900 dark:text-white"> Ajouter un
+                    article </a></h2>
         </div>
     </x-slot>
 
@@ -56,7 +57,7 @@
 
                                 <a href="{{route('editPost', $post)}}" style="color: blue"
                                    class="underline text-gray-900 dark:text-white">Modifier l'article</a>
-                                <a href="{{route('updatePost', $post)}}" style="color: red"
+                                <a href="{{route('deletePost', $post)}}" style="color: red"
                                    class="underline text-gray-900 dark:text-white">Supprimer l'article</a>
                             </div>
                         </div>

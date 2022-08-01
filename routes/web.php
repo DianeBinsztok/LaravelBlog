@@ -26,6 +26,11 @@ Route::post('/comment', [PostController::class, 'store'])->name('comment');
 
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+Route::get('/createPost/', [DashboardController::class, 'create'])->middleware(['auth'])->name('createPost');
+Route::post('/storePost/', [DashboardController::class, 'store'])->middleware(['auth'])->name('storePost');
+
 Route::get('/dashboard/{post}', [DashboardController::class, 'edit'])->middleware(['auth'])->name('editPost');
-Route::patch('/dashboard/{post}', [DashboardController::class, 'update'])->middleware(['auth'])->name('updatePost');
-require __DIR__.'/auth.php';
+Route::put('/dashboard/{post}', [DashboardController::class, 'update'])->middleware(['auth'])->name('updatePost');
+Route::delete('/dashboard/{post}', [DashboardController::class, 'delete'])->middleware(['auth'])->name('deletePost');
+require __DIR__ . '/auth.php';

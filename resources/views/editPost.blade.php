@@ -13,31 +13,32 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <form class="p-6 bg-white border-b border-gray-200" style="display: flex; flex-direction: column;">
                     <h1>Modifier l'article</h1>
 
-                    <form action="{{route('editPost', $post)}}" method="post" class="form-example">
+                    <form action="{{route('updatePost', $post)}}" method="post" class="form-example"
+                          style="display: flex; flex-direction: column;">
+                        @method('PUT')
                         @csrf
                         <input name="post_id" type="hidden" value="{{$post->id}}">
                         <label for="post_title">Titre : </label>
                         <input name="post_title" value="{{$post->title}}"
                                style="border: 1px solid black; font-weight: bold"
-                               size="30"
+                               size="25"
                                placeholder="{{$post->title}}">
                         <label for="content">Contenu</label>
-                        <textarea name="content" id="content" cols="60" rows="30">
+                        <textarea name="content" id="content" cols="60" rows="20">
                             {{$post->content}}
                         </textarea>
-                        <div class="form">
-                            <div style="display: flex; justify-content: space-around">
-                                <!-- Supprimer - modifier un article-->
-                                <a href="{{route('editPost', $post)}}" style="color: blue"
-                                   class="underline text-gray-900 dark:text-white">Enregistrer la modification</a>
-                                <a href="{{route('updatePost', $post)}}" style="color: red"
-                                   class="underline text-gray-900 dark:text-white">Supprimer l'article</a>
-                            </div>
+                        <div style="display: flex; justify-content: space-around">
+                            <!-- Supprimer - modifier un article-->
+                            <input type="submit" value="Enregistrer la modification"
+                                   style="color: blue; text-decoration: underline">
+                            <input type="submit" value="Supprimer l'article"
+                                   style="color: red; text-decoration: underline">
                         </div>
                     </form>
+
 
                     <div class="mt-2 text-sm">
                         {{$post->comments_count}} commentaire(s):
@@ -64,8 +65,8 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
             </div>
         </div>
+    </div>
     </div>
 </x-app-layout>
