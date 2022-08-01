@@ -20,10 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 //Homepage
 Route::get('/', [PostController::class, 'index'])->name('home');
-
 //Page d'article
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
-
 // Envoi du formulaire commentaire
 Route::post('/comment', [CommentController::class, 'store'])->name('comment');
 
