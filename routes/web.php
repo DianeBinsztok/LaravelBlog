@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
 
 // Envoi du formulaire commentaire
-Route::post('/comment', [PostController::class, 'store'])->name('comment');
+Route::post('/comment', [CommentController::class, 'store'])->name('comment');
 
 // DASHBOARD:
 
@@ -39,5 +40,11 @@ Route::put('/dashboard/{post}', [DashboardController::class, 'update'])->middlew
 
 // Supprimer un post
 Route::delete('/dashboard/{post}', [DashboardController::class, 'delete'])->middleware(['auth'])->name('deletePost');
+
+// Modifier - sauvegarder un comment
+Route::put('/dashboard/comment/{comment}', [CommentController::class, 'update'])->middleware(['auth'])->name('updateComment');
+
+// Supprimer un post
+Route::delete('/dashboard/comment/{comment}', [CommentController::class, 'delete'])->middleware(['auth'])->name('deleteComment');
 
 require __DIR__ . '/auth.php';

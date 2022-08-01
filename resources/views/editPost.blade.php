@@ -33,13 +33,14 @@
                             {{$post->content}}
                         </textarea>
 
-                    <!-- Supprimer - modifier un article-->
+                    <!-- Modifier un article-->
                     <input type="submit" value="Enregistrer la modification"
                            style="color: blue; text-decoration: underline">
                 </form>
                 <form action="{{route('deletePost', $post)}}" method="POST">
                     @csrf
                     @method('DELETE')
+                    <!-- Supprimer l'article-->
                     <input type="submit" value="Supprimer l'article"
                            style="color: red; text-decoration: underline">
                     @if ($errors->any())
@@ -54,25 +55,44 @@
                     <div class="mt-2 text-sm">
                         {{$post->comments_count}} commentaire(s):
                         @foreach($post->comments as $comment)
-                            <div class="mt-2 text-sm">
+                            <div class="mt-2 text-sm" style="display: flex; flex-direction: column">
                                 <h4>
                                     @if ($comment->user)
-                                        Par {{$comment->user->name}}, {{$comment->created_at}}
+                                        Par {{$comment->user->name}}, {{$comment->created_at->diffForHumans()}}
                                     @else
                                         Par {{$comment->pseudo}}, {{$comment->created_at->diffForHumans()}}
                                     @endif
                                 </h4>
-                                <textarea name="content" id="content" cols="60" rows="5">
+                                <form action="{{route('updateComment', $comment)}}" method="POST">
+                                    @method('PUT')
+                                    <input name="post_id" type="hidden" value="{{$post->id}}">
+                                    <textarea name="comment_content" id="content" cols="60" rows="5">
                                {{$comment->content}}
-                        </textarea>
+                                </textarea>
+                                    <!-- Modifier le commentaire-->
+                                    <input type="submit" value="Modifier le commentaire"
+                                           style="color: blue; text-decoration: underline">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </form>
 
-                            </div>
-                            <div style="display: flex; justify-content: space-around">
-                                <!-- Supprimer - modifier un commentaire-->
-                                <a href="{{route('editPost', $post)}}" style="color: blue"
-                                   class="underline text-gray-900 dark:text-white">Modifier le commentaire</a>
-                                <a href="{{route('updatePost', $post)}}" style="color: red"
-                                   class="underline text-gray-900 dark:text-white">Supprimer le commentaire</a>
+                                <form action="{{route('deleteComment', $comment)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <!-- Supprimer le commentaire-->
+                                    <input name="comment_id" type="hidden" value="{{$comment->id}}">
+                                    <input type="submit" value="Supprimer le commentaire"
+                                           style="color: red; text-decoration: underline">
+                                </form>
+
+
                             </div>
                         @endforeach
                     </div>

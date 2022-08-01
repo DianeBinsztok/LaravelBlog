@@ -15,7 +15,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    //OK
+
     public function index()
     {
         $posts = Post::with('user')->withCount('comments')->latest()->paginate();
@@ -47,7 +47,7 @@ class DashboardController extends Controller
         return redirect('dashboard');
     }
 
-    // OK
+
     public function edit(Post $post)
     {
         $post->load(['comments.user', 'user']);
@@ -73,15 +73,11 @@ class DashboardController extends Controller
         $post->id = $validated['post_id'];
         $post->title = $validated['post_title'];
         $post->content = $validated['post_content'];
-
-        // Modifier le post via le model
-        print_r($post);
         $post->save();
-
         return redirect('dashboard');
     }
 
-    public function delete(Request $request, Post $post)
+    public function delete(Post $post)
     {
         $post->comments()->delete();
         $post->delete();
