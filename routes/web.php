@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
@@ -18,10 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 //Homepage
 Route::get('/', [PostController::class, 'index'])->name('home');
-
 //Page d'article
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
-
 // Envoi du formulaire commentaire
 Route::post('/comment', [CommentController::class, 'store'])->name('comment');
 
@@ -47,4 +47,6 @@ Route::put('/dashboard/comment/{comment}', [CommentController::class, 'update'])
 // Supprimer un post
 Route::delete('/dashboard/comment/{comment}', [CommentController::class, 'delete'])->middleware(['auth'])->name('deleteComment');
 
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::get('/register',[RegisteredUserController::class, 'create'])->name('register');
 require __DIR__ . '/auth.php';

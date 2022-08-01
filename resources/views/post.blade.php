@@ -482,7 +482,7 @@
                             @endguest
                             <div class="form column">
                                 <label for="content">Votre commentaire </label>
-                                <textarea name="content" id="content" required maxlength="2000" rows="30" cols="25">
+                                <textarea name="content" id="content" required maxlength="2000" rows="15" cols="40">
                                 </textarea>
                             </div>
 
