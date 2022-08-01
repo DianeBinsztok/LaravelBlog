@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,14 +20,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 //Page d'article
-Route::get('/{post}', [PostController::class, 'show'])->name('post');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
 
-// Envoie du formulaire commentaire
-Route::post('/comment', [PostController::class, 'store'])->name('comment');
+// Envoi du formulaire commentaire
+Route::post('/comment', [CommentController::class, 'store'])->name('comment');
 
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// DASHBOARD:
 
-require __DIR__.'/auth.php';
+// Lister les posts
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+// Créer - enregistrer un nouveau post
+Route::get('/createPost/', [DashboardController::class, 'create'])->middleware(['auth'])->name('createPost');
+Route::post('/storePost/', [DashboardController::class, 'store'])->middleware(['auth'])->name('storePost');
+
+// Modifier - sauvegarder un post
+Route::get('/dashboard/{post}', [DashboardController::class, 'edit'])->middleware(['auth'])->name('editPost');
+Route::put('/dashboard/{post}', [DashboardController::class, 'update'])->middleware(['auth'])->name('updatePost');
+
+// Supprimer un post
+Route::delete('/dashboard/{post}', [DashboardController::class, 'delete'])->middleware(['auth'])->name('deletePost');
+
+// Modifier - sauvegarder un comment
+Route::put('/dashboard/comment/{comment}', [CommentController::class, 'update'])->middleware(['auth'])->name('updateComment');
+
+// Supprimer un post
+Route::delete('/dashboard/comment/{comment}', [CommentController::class, 'delete'])->middleware(['auth'])->name('deleteComment');
+
+require __DIR__ . '/auth.php';
