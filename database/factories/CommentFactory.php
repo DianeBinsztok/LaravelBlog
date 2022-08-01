@@ -16,12 +16,14 @@ class CommentFactory extends Factory
                 'email' => fake()->email,
                 'pseudo' => fake()->name,
                 'post_id' => Post::inRandomOrder()->first(),
+                'created_at' => fake()->dateTimeBetween('-1 week'),
             ];
         } else {
             return [
                 'content' => fake()->text(200),
                 'user_id' => User::inRandomOrder()->first(),
                 'post_id' => Post::inRandomOrder()->first(),
+                'created_at' => fake()->dateTimeBetween('-1 week'),
             ];
         }
     }

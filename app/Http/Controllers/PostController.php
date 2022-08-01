@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -23,53 +24,50 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return
      */
     public function store(Request $request)
     {
         // Valider les champs : https://laravel.com/docs/9.x/validation#validation-quickstart avec les règles de validation : https://laravel.com/docs/9.x/validation#available-validation-rules
-        if (auth()->user()) {
-            $validate = $request->validate([
-                'post_id' => 'exists:App\Models\Post,id',
-                'user_id' => ['required', 'exists:App\Models\User,id'],
-                'content' => ['required', 'string']
-            ]);
+        if (Auth::check()) {
+            $rules = [
+                'post_id' => 'required|exists:App\Models\Post,id',
+                'content' => ['required', 'string', 'max:2000'],
+            ];
         } else {
-            $validate = $request->validate([
-                'post_id' => 'exists:App\Models\Post,id',
+            $rules = [
+                'post_id' => 'required|exists:App\Models\Post,id',
                 'pseudo' => ['required', 'string'],
-                'email' => ['required', 'email:rfc,dns'],
-                'content' => ['required', 'string']
-
-                // Comment vérifier l'existence du même pseudo sur une adresse email différente?
-                // Comment imposer un pseudo unique sur une même adresse email?
-                //'pseudo' => ['required', 'unique:App\Models\Comment,pseudo', 'string'],
-                //'email' => ['required', 'email:rfc,dns'],
-
-            ]);
+                'email' => ['required', 'email'],
+                'content' => ['required', 'string', 'max:2000'],
+            ];
         }
 
-        print_r($validate);
+        $validate = $request->validate($rules);
 
         // Crée un comment via un model : https://laravel.com/docs/9.x/eloquent#inserts
         $comment = new Comment;
-        $comment->post_id = $request->post_id;
-        $comment->user_id = $request->user_id;
-        $comment->pseudo = $request->pseudo;
-        $comment->email = $request->email;
-        $comment->content = $request->content;
+        $comment->post_id = $validate['post_id'];
+        $comment->content = $validate['content'];
+
+        if (Auth::check()) {
+            $comment->user_id = Auth::id();
+        } else {
+            $comment->pseudo = $validate['pseudo'];
+            $comment->email = $validate['email'];
+        }
+
         $comment->save();
 
         // Redirige ou renvoie sur une view success : https://laravel.com/docs/9.x/responses#redirects
         return back()->withInput();
     }
 
-
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show(Post $post)

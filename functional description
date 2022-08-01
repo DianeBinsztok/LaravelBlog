@@ -1,50 +1,48 @@
-Blog à 3 vues principales
+PROJET BLOG LARAVEL
 
-- page d'accueil
-- page d'article
-- dashboard administrateur
-
-Fonctionnalités:
-
-GET afficher la page d'accueil
-GET afficher la page d'article
-GET afficher le dashboard
-POST ajouter un commentaire depuis la page d'article
-PATCH modifier un commentaire
+- 3 VUES PRINCIPALES:
+    - page d'accueil
+    - page d'article
+    - dashboard administrateur
+    inclut:
+    - une 404
+    - une page de login (disponible depuis un lien ou une redirection depuis dashboard)
 
 
-L'utilisateur authentifié peut:
-- afficher la page d'accueil
-- afficher la page d'article
-- ajouter un commentaire sans renseigner son son ou email : seul le champs de contenu du commentaire apparaît
-- Modifier ses commentaires
-- Supprimer son commentaire
+ROUTES - VERBES HTTP - FONCTIONNALITES ATTENDUES:
 
+POUR LE VISITEUR:
+    - '/' - GET - afficher la page d'accueil
+    - '/post/{post_id}' - GET - afficher la page d'article
+    - '/comment' - POST - depuis la page article: ajouter un commentaire en renseignant un pseudo et un email
+    - PATCH - Modifier ses commentaires
+    - DELETE - Supprimer son commentaire
 
-l'utilisateur non authentifié peut:
-- afficher la page d'accueil
-- afficher la page d'article
-- depuis la page d'accueil: ajouter un article
-- depuis la page article: ajouter un commentaire en renseignant un pseudo et un email
-- Modifier ses commentaires
-- Supprimer son commentaire
+POUR L'UTILISATEUR AUTHENTIFIÉ
+    - '/' - GET - afficher la page d'accueil
+    - '/post/{post_id}' - GET - afficher la page d'article
+    - '/comment' - POST - ajouter un commentaire sans renseigner son son ou email : seul le champs de contenu du commentaire apparaît
+    - PATCH - Modifier ses commentaires
+    - DELETE - Supprimer son commentaire
 
-L'administrateur peut:
-- afficher la page d'accueil
-- afficher la page d'article
-- depuis la page d'accueil: ajouter un article
-- depuis la page article: ajouter un commentaire en renseignant un pseudo et un email
-- afficher le dashboard
+POUR L'ADMINISTRATEUR
+    - '/' - GET - afficher la page d'accueil
+    - '/post/{post_id}' - GET - afficher la page d'article
+    - '/comment' - POST - ajouter un commentaire depuis la page d'article
+    -  PATCH - modifier un commentaire
+    - '/dashboard' - GET - afficher le dashboard
 - depuis le dashboard:
-    - Ajouter un utilisateur
-    - Supprimer un utilisateur
-    - Modifier des infos utilisateur
-    - Ajouter un article
-    - Supprimer un article
-    - Modifier des un article
-    - Ajouter un commentaire
-    - Supprimer un commentaire
-    - Modifier un commentaire
+    - '/dashboard/users' - GET - afficher tous les utilisateurs
+    - '/dashboard/users/{user_id}' - GET - afficher un profil utilisateur
+    - '/dashboard/users' - POST - Ajouter un utilisateur
+    - '/dashboard/users' - DELETE - Supprimer un utilisateur
+    - '/dashboard/users/{user_id}' - PATCH - Modifier des infos utilisateur
+    - '/dashboard/post' - POST - Ajouter un article
+    - '/dashboard/post' - DELETE - Supprimer un article
+    - '/dashboard/post' - PATCH - Modifier des un articles
+    - '/dashboard/comment' - POST - Ajouter un commentaire
+    - '/dashboard/comment' - DELETE - Supprimer un commentaire
+    - '/dashboard/comment' - PATCH - Modifier un commentaire
 
 Technologies utilisées:
 - Laravel 9
