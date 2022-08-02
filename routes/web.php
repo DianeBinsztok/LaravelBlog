@@ -56,4 +56,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function
 require __DIR__ . '/auth.php';
 
 //API
-Route::get('/api/',[\App\Http\Controllers\API\APIPostController::class, 'index'] )->name('APIhome');
+Route::get('/api/', [\App\Http\Controllers\API\APIPostController::class, 'index'])->name('APIhome');
+Route::get('/api/{post}', [\App\Http\Controllers\API\APIPostController::class, 'show'])->name('APIPost');
