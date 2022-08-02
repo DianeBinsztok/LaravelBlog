@@ -27,7 +27,6 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
 Route::post('/comment', [CommentController::class, 'store'])->name('comment');
 
 
-
 // CRUD ADMIN:
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function () {
 // Lister les posts
@@ -55,3 +54,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function
 //Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
 //Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 require __DIR__ . '/auth.php';
+
+//API
+Route::get('/api/',[\App\Http\Controllers\API\APIPostController::class, 'index'] )->name('APIhome');
