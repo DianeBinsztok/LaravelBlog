@@ -48,9 +48,7 @@ class CommentController extends Controller
             $comment->pseudo = $validate['pseudo'];
             $comment->email = $validate['email'];
         }
-
         $comment->save();
-
         // Redirige ou renvoie sur une view success : https://laravel.com/docs/9.x/responses#redirects
         return back()->withInput();
     }
@@ -67,8 +65,6 @@ class CommentController extends Controller
         $comment->post_id = $validated['post_id'];
         $comment->content = $validated['comment_content'];
 
-        // Modifier le commentaire via le model
-        print_r($comment);
         $comment->save();
         // Redirige ou renvoie sur une view success : https://laravel.com/docs/9.x/responses#redirects
         return back()->withInput();
@@ -76,10 +72,8 @@ class CommentController extends Controller
 
     public function delete(Comment $comment)
     {
-
         $comment->delete();
         $post_id = $comment->post_id;
-        print_r('Success');
         $post = Post::findOrFail($post_id);
         return view('editPost', ['post' => $post]);
     }
