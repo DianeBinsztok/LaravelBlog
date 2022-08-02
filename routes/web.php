@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +26,8 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('post');
 // Envoi du formulaire commentaire
 Route::post('/comment', [CommentController::class, 'store'])->name('comment');
 
+
+
 // CRUD ADMIN:
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function () {
 // Lister les posts
@@ -45,7 +49,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function
 
 // Supprimer un commentaire
     Route::delete('/comment/{comment}', [CommentController::class, 'delete'])->name('deleteComment');
-
 }));
 
 
