@@ -10,11 +10,11 @@ class Kernel extends HttpKernel
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.  \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+     * \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+     * \Illuminate\Session\Middleware\StartSession::class,
+     * \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+     * \App\Http\Middleware\VerifyCsrfToken::class,
+     * \Illuminate\Routing\Middleware\SubstituteBindings::class,
      *
      * @var array<int, class-string|string>
      */
@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'admin' => \App\Http\Middleware\Admin::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

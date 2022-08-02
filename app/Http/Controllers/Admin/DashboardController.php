@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Comment;
+use App\Http\Controllers\Controller;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         $posts = Post::with('user')->withCount('comments')->latest()->paginate();
-        return view('dashboard', ['posts' => $posts]);
+        return view('admin.dashboard', ['posts' => $posts]);
     }
 
     //OK
@@ -37,21 +36,19 @@ class DashboardController extends Controller
         $validated = $request->validate($rules);
 
         $post = new Post;
-        //$post->user = User::on('id');
         $user_id = Auth::user()->id;
         $post->user_id = $user_id;
         $post->title = $validated['post_title'];
         $post->content = $validated['post_content'];
         $post->save();
-
-        return redirect('dashboard');
+        return redirect('admin.dashboard');
     }
 
 
     public function edit(Post $post)
     {
         $post->load(['comments.user', 'user']);
-        return view('editPost', ['post' => $post]);
+        return view('admin.editPost', ['post' => $post]);
     }
 
     /**
@@ -74,13 +71,13 @@ class DashboardController extends Controller
         $post->title = $validated['post_title'];
         $post->content = $validated['post_content'];
         $post->save();
-        return redirect('dashboard');
+        return redirect('admin.dashboard');
     }
 
     public function delete(Post $post)
     {
         $post->comments()->delete();
         $post->delete();
-        return redirect('dashboard');
+        return redirect('admin.dashboard');
     }
 }
