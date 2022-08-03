@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\APIPostController;
+use App\Http\Controllers\API\APICommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('/', [APIPostController::class, 'index'])->name('APIhome');
+Route::get('/posts/{post}', [APIPostController::class, 'show'])->name('APIPost');
+Route::post('/comment', [APICommentController::class, 'store'])->name('APIComment');
+
+//marche pas:
+/*Route::apiResources([
+    'post' => APIPostController::class,
+    'comment' => APICommentController::class,
+]);*/
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
