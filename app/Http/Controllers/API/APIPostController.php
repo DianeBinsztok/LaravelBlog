@@ -16,7 +16,8 @@ class APIPostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->withCount('comments')->latest()->paginate();
-        return $posts->toJson();
+        //return $posts->toJson();
+        return response()->json($posts);
     }
 
     /**
@@ -28,6 +29,7 @@ class APIPostController extends Controller
     public function show(Post $post)
     {
         $post->load(['comments.user', 'user']);
-        return $post->toJson();
+        //return $post->toJson();
+        return response()->json($post);
     }
 }

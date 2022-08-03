@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\APIPostController;
+use App\Http\Controllers\API\APICommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,11 +49,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function
     Route::delete('/comment/{comment}', [CommentController::class, 'delete'])->name('deleteComment');
 }));
 
-
-//Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-//Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 require __DIR__ . '/auth.php';
-
-//API
-Route::get('/api/', [\App\Http\Controllers\API\APIPostController::class, 'index'])->name('APIhome');
-Route::get('/api/{post}', [\App\Http\Controllers\API\APIPostController::class, 'show'])->name('APIPost');
