@@ -24,7 +24,7 @@ class DashboardController extends Controller
     //OK
     public function create()
     {
-        return view('createPost');
+        return view('admin.createPost');
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $post->title = $validated['post_title'];
         $post->content = $validated['post_content'];
         $post->save();
-        return redirect('admin.dashboard');
+        return redirect('admin/dashboard');
     }
 
 

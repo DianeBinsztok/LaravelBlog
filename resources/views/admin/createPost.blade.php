@@ -24,7 +24,6 @@
                     <textarea name="post_content" id="content" cols="60" rows="20">
                         </textarea>
                     <div style="display: flex; justify-content: space-around">
-                        <!-- Supprimer - modifier un article-->
                         <input type="submit" value="Enregistrer l'article"
                                style="color: blue; text-decoration: underline">
                     </div>
