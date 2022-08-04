@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function
 
 
 //js
-Route::view('/js/', 'scripted.index')->name('JShome');
+Route::view('/js/posts', 'scripted.index')->name('JShome');
 Route::view('/js/posts/{post}', 'scripted.post')->name('JSPost');
 
 require __DIR__ . '/auth.php';
