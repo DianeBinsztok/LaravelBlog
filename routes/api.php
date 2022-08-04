@@ -16,7 +16,7 @@ use App\Http\Controllers\API\APICommentController;
 |
 */
 
-Route::get('/', [APIPostController::class, 'index'])->name('APIhome');
+Route::get('/posts/', [APIPostController::class, 'index'])->name('APIhome');
 Route::get('/posts/{post}', [APIPostController::class, 'show'])->name('APIPost');
 Route::post('/comment', [APICommentController::class, 'store'])->name('APIComment');
 

@@ -8,10 +8,8 @@ use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
-    /**
-     */
     public function test_new_comment_by_guest()
     {
         $response = $this->postJson('/api/comment', ['post_id' => 1, 'content' => 'testByGuest', 'pseudo' => 'TestingDude', 'email' => 'test@test.fr']);
