@@ -36,7 +36,7 @@ class DashboardController extends Controller
         $validated = $request->validate($rules);
 
         $post = new Post;
-        $user_id = Auth::user()->id;
+        $user_id = Auth::id();
         $post->user_id = $user_id;
         $post->title = $validated['post_title'];
         $post->content = $validated['post_content'];
@@ -60,12 +60,11 @@ class DashboardController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $rules = [
+        $validated = $request->validate([
             'post_id' => 'required|exists:App\Models\Post,id',
-            'post_title' => ['required', 'string', 'max:500'],
-            'post_content' => ['required', 'string', 'max:2000'],
-        ];
-        $validated = $request->validate($rules);
+            'post_title' => ['required', 'string', 'max:250'],
+            'post_content' => ['required', 'string', 'max:65000'],
+        ]);
 
         $post->id = $validated['post_id'];
         $post->title = $validated['post_title'];

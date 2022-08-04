@@ -49,4 +49,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], (function
     Route::delete('/comment/{comment}', [CommentController::class, 'delete'])->name('deleteComment');
 }));
 
+
+//js
+Route::view('/js/posts', 'scripted.index')->name('JShome');
+Route::view('/js/posts/{post}', 'scripted.post')->name('JSPost');
+
 require __DIR__ . '/auth.php';
