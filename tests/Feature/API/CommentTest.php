@@ -23,12 +23,14 @@ class CommentTest extends TestCase
 
     public function test_new_comment_by_guest_with_factory()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->count(1)->create();
         $post = Post::factory()
             ->for($user)
+            ->count(1)
             ->create();
         $comment = Comment::factory()
             ->for($post)
+            ->count(1)
             ->state(["pseudo" => "Testing Dude", "email" => "test@test.fr"])
             ->create();
         $response = $this->postJson('/api/comment', ['post_id' => $comment->post_id, 'content' => $comment->content, 'pseudo' => $comment->pseudo, 'email' => $comment->email]);
@@ -43,11 +45,13 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $post = Post::factory()
             ->for($user)
+            ->count(1)
             ->create();
 
         $comment = Comment::factory()
             ->for($post)
-            ->for(User::factory()->create())
+            ->count(1)
+            ->for($user)
             ->create();
 
         $response = $this->postJson('/api/comment', ['post_id' => $comment->post_id, 'content' => $comment->content, 'user_id' => $comment->user_id]);
@@ -61,9 +65,11 @@ class CommentTest extends TestCase
         $user = User::factory()->create();
         $post = Post::factory()
             ->for($user)
+            ->count(1)
             ->create();
         $comment = Comment::factory()
             ->for($post)
+            ->count(1)
             ->create();
         $response = $this->postJson('/api/comment', ['post_id' => $comment->post_id, 'content' => $comment->content, 'pseudo' => $comment->pseudo]);
         $response->assertStatus(422);

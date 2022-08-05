@@ -1,6 +1,8 @@
 import './bootstrap';
 
-const src = "/api/";
+console.log("Je suis làààà !!!!");
+
+const src = "/api/posts/";
 
 let html = '';
 
@@ -15,7 +17,7 @@ function handlePostData(postData) {
     return post;
 }
 
-function display() {
+function fetchData() {
     // fetch().then() peut aussi s'écrire avec asynch().await()
     fetch(src)
         .then((response) => {
@@ -25,6 +27,7 @@ function display() {
                     `Erreur ${response.status}: La requête à l' API a échoué.`
                 );
             } else {
+                console.log(response.json());
                 return response.json();
             }
         })
@@ -39,4 +42,4 @@ function display() {
         });
 }
 
-display();
+fetchData();
