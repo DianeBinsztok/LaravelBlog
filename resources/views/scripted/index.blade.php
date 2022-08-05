@@ -22,8 +22,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <script type="text/javascript" src={{asset("../../js/index.js")}}></script> -->
-
             <script type="text/javascript">
 
 
@@ -76,11 +74,9 @@
                                 error
                             )}`;
                         });
-
                 }
 
                 fetchPostData();
-
             </script>
 
 </x-guest-layout>
